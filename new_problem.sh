@@ -33,11 +33,29 @@ if [ ! -f "$TEST_FILE" ]; then
 cat <<EOF > "$TEST_FILE"
 // tests/test_${PROBLEM_NAME}.cpp
 #include <gtest/gtest.h>
+#include <performance.h>
 #include "../solution.cpp"
+
+using namespace leetcode;
 
 TEST(${PROBLEM_NAME}, SampleTest) {
     Solution s;
     // TODO: add test cases
+}
+
+TEST(${PROBLEM_NAME}, Performance) {
+    Solution s;
+    
+    // TODO: setup test data
+    
+    // Measure performance
+    PerformanceMonitor monitor(1000.0, 10 * 1024); // 1s, 10MB limits
+    auto metrics = monitor.measure([&]() {
+        // TODO: call solution method
+    });
+    
+    LOG_PERFORMANCE(metrics);
+    EXPECT_PERFORMANCE(metrics, 1000.0, 10 * 1024);
 }
 EOF
 fi

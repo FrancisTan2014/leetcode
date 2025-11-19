@@ -4,11 +4,17 @@ project(leetcode LANGUAGES CXX)
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+# Add utils include directory
+include_directories(${CMAKE_SOURCE_DIR}/utils)
+
 # Add cmake helper to fetch GoogleTest
 include(cmake/GoogleTest.cmake)
 include(GoogleTest)
 
 enable_testing()
+
+# Add utils tests
+add_subdirectory(utils)
 
 # Add each problem subdirectory automatically
 file(GLOB CHILD_DIRS RELATIVE ${CMAKE_SOURCE_DIR} "problems/*")

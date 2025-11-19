@@ -1,0 +1,3 @@
+add_executable(test_performance tests/test_performance.cpp)
+target_link_libraries(test_performance GTest::gtest_main)
+gtest_discover_tests(test_performance)

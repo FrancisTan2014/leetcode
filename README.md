@@ -6,6 +6,7 @@ A C++ practice environment for solving LeetCode problems with CMake build system
 
 - **CMake Build System**: Modern C++20 with automated problem discovery
 - **Google Test Integration**: Write and run unit tests for each solution
+- **Performance Measurement**: Built-in utilities to measure execution time and memory usage
 - **Problem Template Script**: Quickly scaffold new problem directories
 - **Organized Structure**: Each problem in its own directory with solution, tests, and notes
 
@@ -95,9 +96,80 @@ This creates:
    ctest
    ```
 
+## Performance Testing
+
+The project includes a performance measurement utility (`utils/performance.h`) to track execution time and memory usage.
+
+### Basic Usage
+
+```cpp
+#include <performance.h>
+using namespace leetcode;
+
+TEST(MyTest, Performance) {
+    Solution s;
+    
+    // Create performance monitor
+    PerformanceMonitor monitor;
+    
+    // Measure function execution
+    auto metrics = monitor.measure([&]() {
+        s.myFunction();
+    });
+    
+    // Log results
+    LOG_PERFORMANCE(metrics);
+    
+    // Assert performance limits
+    EXPECT_TIME_LIMIT(metrics, 100.0);  // 100ms
+    EXPECT_MEMORY_LIMIT(metrics, 1024); // 1MB (in KB)
+}
+```
+
+### Setting Performance Limits
+
+```cpp
+// Monitor with time limit (100ms) and memory limit (10MB)
+PerformanceMonitor monitor(100.0, 10 * 1024);
+
+vector<int> result;
+auto metrics = monitor.measureWithReturn([&]() {
+    return s.compute(data);
+}, result);
+
+// Check if limits were exceeded
+if (metrics.time_exceeded || metrics.memory_exceeded) {
+    FAIL() << "Performance limits exceeded!";
+}
+
+// Or use convenience macros
+EXPECT_PERFORMANCE(metrics, 100.0, 10 * 1024);
+```
+
+### Available Macros
+
+- `LOG_PERFORMANCE(metrics)` - Print execution time and memory usage
+- `EXPECT_TIME_LIMIT(metrics, limit_ms)` - Soft assertion for time limit
+- `ASSERT_TIME_LIMIT(metrics, limit_ms)` - Hard assertion for time limit
+- `EXPECT_MEMORY_LIMIT(metrics, limit_kb)` - Soft assertion for memory limit
+- `ASSERT_MEMORY_LIMIT(metrics, limit_kb)` - Hard assertion for memory limit
+- `EXPECT_PERFORMANCE(metrics, time_ms, memory_kb)` - Combined soft assertion
+- `ASSERT_PERFORMANCE(metrics, time_ms, memory_kb)` - Combined hard assertion
+
+### Performance Metrics
+
+```cpp
+struct PerformanceMetrics {
+    double time_ms;        // Execution time in milliseconds
+    long memory_kb;        // Peak memory usage in kilobytes
+    bool time_exceeded;    // Whether time limit was exceeded
+    bool memory_exceeded;  // Whether memory limit was exceeded
+};
+```
+
 ## Example
 
-See `problems/0001-two-sum/` for a complete example of a solved problem with tests.
+See `problems/0001-two-sum/` for a complete example of a solved problem with tests and performance measurements.
 
 ## Notes
 
