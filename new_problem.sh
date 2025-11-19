@@ -54,7 +54,8 @@ TEST(${PROBLEM_NAME}, Performance) {
         // TODO: call solution method
     });
     
-    LOG_PERFORMANCE(metrics);
+    // Record performance for CTest reporting
+    RECORD_PERFORMANCE_PROPERTY(metrics, "${PROBLEM_NAME}");
     EXPECT_PERFORMANCE(metrics, 1000.0, 10 * 1024);
 }
 EOF

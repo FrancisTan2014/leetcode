@@ -40,8 +40,8 @@ TEST(TwoSum, Performance_SmallArray) {
     EXPECT_EQ(result[0], 0);
     EXPECT_EQ(result[1], 1);
     
-    // Log performance for information
-    LOG_PERFORMANCE(metrics);
+    // Record performance for CTest reporting
+    RECORD_PERFORMANCE_PROPERTY(metrics, "SmallArray");
     
     // Assert performance limits (adjust as needed)
     EXPECT_TIME_LIMIT(metrics, 10.0);  // 10ms limit
@@ -68,8 +68,8 @@ TEST(TwoSum, Performance_LargeArray) {
     // Verify correctness
     ASSERT_EQ(result.size(), 2);
     
-    // Log and check performance
-    LOG_PERFORMANCE(metrics);
+    // Record performance for CTest reporting
+    RECORD_PERFORMANCE_PROPERTY(metrics, "LargeArray");
     EXPECT_PERFORMANCE(metrics, 100.0, 10 * 1024);
     
     // Individual checks with better messages

@@ -207,17 +207,29 @@ private:
 
 // Convenience macros for logging performance
 #define LOG_PERFORMANCE(metrics) \
-    std::cout << "Performance: " << (metrics).time_ns << "ns (" \
+    std::cout << "[PERF] " << (metrics).time_ns << "ns (" \
               << (metrics).time_ms << "ms), " \
               << (metrics).memory_kb << "KB" << std::endl
 
 #define LOG_PERFORMANCE_VERBOSE(metrics) \
-    std::cout << "Performance Metrics:\n" \
-              << "  Time: " << (metrics).time_ns << "ns (" << (metrics).time_ms << "ms)\n" \
-              << "  Memory: " << (metrics).memory_kb << "KB" \
+    std::cout << "[PERF] Performance Metrics:\n" \
+              << "[PERF]   Time: " << (metrics).time_ns << "ns (" << (metrics).time_ms << "ms)\n" \
+              << "[PERF]   Memory: " << (metrics).memory_kb << "KB" \
               << ((metrics).memory_kb >= 1024 ? " (" + std::to_string((metrics).memory_kb / 1024) + "MB)" : "") << "\n" \
-              << "  Time Limit Exceeded: " << ((metrics).time_exceeded ? "Yes" : "No") << "\n" \
-              << "  Memory Limit Exceeded: " << ((metrics).memory_exceeded ? "Yes" : "No") \
+              << "[PERF]   Time Limit Exceeded: " << ((metrics).time_exceeded ? "Yes" : "No") << "\n" \
+              << "[PERF]   Memory Limit Exceeded: " << ((metrics).memory_exceeded ? "Yes" : "No") \
               << std::endl
+
+// Google Test listener for automatic performance reporting
+#define RECORD_PERFORMANCE_PROPERTY(metrics, test_name) \
+    do { \
+        ::testing::Test::RecordProperty("time_ns", std::to_string((metrics).time_ns)); \
+        ::testing::Test::RecordProperty("time_ms", std::to_string((metrics).time_ms)); \
+        ::testing::Test::RecordProperty("memory_kb", std::to_string((metrics).memory_kb)); \
+        ::testing::Test::RecordProperty("time_exceeded", (metrics).time_exceeded ? "true" : "false"); \
+        ::testing::Test::RecordProperty("memory_exceeded", (metrics).memory_exceeded ? "true" : "false"); \
+        std::cout << "[PERF] " << test_name << ": " << (metrics).time_ms << "ms, " \
+                  << (metrics).memory_kb << "KB" << std::endl; \
+    } while(0)
 
 #endif // LEETCODE_PERFORMANCE_H

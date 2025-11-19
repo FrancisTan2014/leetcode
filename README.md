@@ -35,7 +35,29 @@ leetcode/
 
 ## Getting Started
 
-### Building the Project
+### Quick Start with Makefile
+
+```bash
+# Build the project
+make build
+
+# Run all tests
+make test
+
+# Run tests with performance metrics
+make test-verbose
+
+# Run only performance tests
+make test-perf
+
+# Create a new problem
+make new PROBLEM=0042-trapping-rain-water
+
+# Clean build
+make clean
+```
+
+### Manual Build with CMake
 
 ```bash
 # Create build directory
@@ -59,6 +81,23 @@ ctest
 
 # Or using ctest
 ctest -R two_sum
+
+# Run with verbose output to see performance metrics
+ctest -R two_sum --verbose
+```
+
+### Running Tests with Performance Details
+
+```bash
+# Use the enhanced test runner (from project root)
+./run_tests_detailed.sh
+
+# Or run standard tests with CTest
+cd build
+ctest --output-on-failure
+
+# View performance metrics in output
+ctest --verbose | grep PERF
 ```
 
 ## Creating a New Problem
@@ -149,6 +188,8 @@ EXPECT_PERFORMANCE(metrics, 100.0, 10 * 1024);
 ### Available Macros
 
 - `LOG_PERFORMANCE(metrics)` - Print execution time and memory usage
+- `LOG_PERFORMANCE_VERBOSE(metrics)` - Detailed performance report
+- `RECORD_PERFORMANCE_PROPERTY(metrics, name)` - Record metrics in CTest XML
 - `EXPECT_TIME_LIMIT(metrics, limit_ms)` - Soft assertion for time limit
 - `ASSERT_TIME_LIMIT(metrics, limit_ms)` - Hard assertion for time limit
 - `EXPECT_MEMORY_LIMIT(metrics, limit_kb)` - Soft assertion for memory limit
