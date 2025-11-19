@@ -106,6 +106,9 @@ Use the provided script to create a new problem directory:
 
 ```bash
 ./new_problem.sh 0042-trapping-rain-water
+
+# Update debug configurations (optional)
+./.vscode/update_launch.sh
 ```
 
 This creates:
@@ -127,7 +130,13 @@ This creates:
 
 4. **Write tests** in `tests/test_0123-problem-name.cpp`
 
-5. **Build and test**:
+5. **Debug (press F5)**:
+   - Open test file
+   - Click inside any test case
+   - Press **F5** - auto-detects everything!
+   - See [DEBUGGING.md](DEBUGGING.md) for details
+
+6. **Build and test**:
    ```bash
    cd build
    cmake ..

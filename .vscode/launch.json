@@ -1,0 +1,45 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Debug Test at Cursor (F5)",
+            "type": "lldb",
+            "request": "launch",
+            "program": "${workspaceFolder}/build/problems/${input:problemFolder}/test_${input:problemFolder}",
+            "args": [
+                "--gtest_filter=${input:testAtCursor}"
+            ],
+            "cwd": "${workspaceFolder}/build",
+            "preLaunchTask": "build-debug"
+        },
+        {
+            "name": "Debug All Tests in Current File",
+            "type": "lldb",
+            "request": "launch",
+            "program": "${workspaceFolder}/build/problems/${input:problemFolder}/test_${input:problemFolder}",
+            "args": [],
+            "cwd": "${workspaceFolder}/build",
+            "preLaunchTask": "build-debug"
+        }
+    ],
+    "inputs": [
+        {
+            "id": "problemFolder",
+            "type": "command",
+            "command": "shellCommand.execute",
+            "args": {
+                "command": "${workspaceFolder}/.vscode/get_problem_folder.sh '${file}'",
+                "useFirstResult": true
+            }
+        },
+        {
+            "id": "testAtCursor",
+            "type": "command",
+            "command": "shellCommand.execute",
+            "args": {
+                "command": "python3 ${workspaceFolder}/.vscode/get_test_at_line.py '${file}' ${lineNumber}",
+                "useFirstResult": true
+            }
+        }
+    ]
+}

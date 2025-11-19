@@ -1,0 +1,8 @@
+{
+    "recommendations": [
+        "ms-vscode.cpptools",
+        "ms-vscode.cmake-tools",
+        "augustocdias.tasks-shell-input",
+        "vadimcn.vscode-lldb"
+    ]
+}

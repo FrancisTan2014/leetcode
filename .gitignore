@@ -49,8 +49,6 @@ CTestCostData.txt
 _deps/
 
 # IDE and Editor files
-.vscode/*
-!.vscode/c_cpp_properties.json
 .idea/
 *.swp
 *.swo
