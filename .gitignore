@@ -1,0 +1,69 @@
+# Build directories
+build/
+cmake-build-*/
+
+# CMake generated files
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+CTestTestfile.cmake
+Makefile
+*.cmake
+!cmake/*.cmake
+!CMakeLists.txt
+
+# Compiled binaries
+bin/
+lib/
+*.exe
+*.out
+*.app
+test_*
+!*.cpp
+!*.h
+!*.hpp
+
+# Object files
+*.o
+*.obj
+*.lo
+*.slo
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Libraries
+*.lib
+*.a
+*.la
+*.so
+*.dylib
+*.dll
+
+# Testing
+Testing/
+CTestCostData.txt
+
+# Google Test
+_deps/
+
+# IDE and Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Compiler-specific
+*.d
+*.dSYM/
+
+# Generated documentation
+html/
+latex/
+
+# Core dumps
+core
+core.*
