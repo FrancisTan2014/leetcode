@@ -102,13 +102,10 @@ ctest --verbose | grep PERF
 
 ## Creating a New Problem
 
-Use the provided script to create a new problem directory:
+Use the `make new` command to create a new problem directory:
 
 ```bash
-./new_problem.sh 0042-trapping-rain-water
-
-# Update debug configurations (optional)
-./.vscode/update_launch.sh
+make new PROBLEM=0042-trapping-rain-water
 ```
 
 This creates:
@@ -121,7 +118,7 @@ This creates:
 
 1. **Create a new problem**:
    ```bash
-   ./new_problem.sh 0123-problem-name
+   make new PROBLEM=0123-problem-name
    ```
 
 2. **Add problem description** to `problem.md`
@@ -227,6 +224,45 @@ See `problems/0001-two-sum/` for a complete example of a solved problem with tes
 - Google Test is fetched automatically during the first build
 - Each problem is built as a separate executable
 - Test results are integrated with CTest
+
+## VS Code Integration
+
+This project is optimized for VS Code with a seamless debugging experience.
+
+### Features
+- **One-Click Debugging**: Just press **F5** to debug the test case at your cursor.
+- **Auto-Detection**: The system automatically identifies the problem and test case you are working on.
+- **IntelliSense**: Full C++20 support with Clangd or Microsoft C/C++ extension.
+
+See [DEBUGGING.md](DEBUGGING.md) for a detailed guide on the debugging workflow.
+
+## Troubleshooting
+
+### Common Issues
+
+#### 1. CMake Not Found
+If you see `command not found: cmake`, ensure you have CMake 3.16+ installed.
+- Ubuntu/Debian: `sudo apt install cmake`
+- macOS: `brew install cmake`
+
+#### 2. Build Fails
+If the build fails, try cleaning the build directory:
+```bash
+make clean
+make build
+```
+
+#### 3. Performance Tests Failing
+Performance tests depend on system load. If they fail:
+- Ensure you are not running heavy background processes.
+- Increase the time limits in the test file if your machine is slower.
+- Note: Memory measurement on macOS might be less precise than on Linux.
+
+#### 4. Debugger Not Starting
+If F5 doesn't work:
+- Ensure you have the recommended extensions installed.
+- Check if the `Tasks Shell Input` extension is installed (ID: `augustocdias.tasks-shell-input`).
+- Run `.vscode/update_launch.sh` if you recently created a new problem.
 
 ## License
 
