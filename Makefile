@@ -14,7 +14,7 @@ help:
 
 build:
 	@mkdir -p build
-	@cd build && cmake .. && $(MAKE)
+	@cd build && cmake .. && $(MAKE) -j
 
 test: build
 	@cd build && ctest --output-on-failure
