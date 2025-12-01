@@ -180,7 +180,7 @@ TEST(MinWindowSubstring, MaxLengthBothStrings) {
     string str_s(100000, 'a');
     string str_t(100000, 'a');
     
-    PerformanceMonitor monitor(100.0, 10240); // 100ms, 10MB
+    PerformanceMonitor monitor(100.0, 1024); // 100ms, 1MB
     string result;
     auto metrics = monitor.measureWithReturn([&]() {
         return s.minWindow(str_s, str_t);
@@ -189,7 +189,7 @@ TEST(MinWindowSubstring, MaxLengthBothStrings) {
     EXPECT_EQ(result, str_s); // Entire string is the window
     
     RECORD_PERFORMANCE_PROPERTY(metrics, "MaxLengthExactMatch");
-    EXPECT_PERFORMANCE(metrics, 100.0, 10240);
+    EXPECT_PERFORMANCE(metrics, 100.0, 1024);
 }
 
 TEST(MinWindowSubstring, MaxLengthWorstCase) {
@@ -206,7 +206,7 @@ TEST(MinWindowSubstring, MaxLengthWorstCase) {
     
     string str_t = "bcdefghijk";
     
-    PerformanceMonitor monitor(100.0, 10240); // 100ms, 10MB
+    PerformanceMonitor monitor(10, 1);
     string result;
     auto metrics = monitor.measureWithReturn([&]() {
         return s.minWindow(str_s, str_t);
@@ -215,7 +215,7 @@ TEST(MinWindowSubstring, MaxLengthWorstCase) {
     EXPECT_EQ(result, "bcdefghijk"); // Found at end
     
     RECORD_PERFORMANCE_PROPERTY(metrics, "WorstCaseEndMatch");
-    EXPECT_PERFORMANCE(metrics, 100.0, 10240);
+    EXPECT_PERFORMANCE(metrics, 10, 1);
 }
 
 TEST(MinWindowSubstring, MaxLengthNoMatch) {
@@ -225,7 +225,7 @@ TEST(MinWindowSubstring, MaxLengthNoMatch) {
     string str_s(100000, 'a');
     string str_t = "az";
     
-    PerformanceMonitor monitor(100.0, 10240); // 100ms, 10MB
+    PerformanceMonitor monitor(10, 1);
     string result;
     auto metrics = monitor.measureWithReturn([&]() {
         return s.minWindow(str_s, str_t);
@@ -234,7 +234,7 @@ TEST(MinWindowSubstring, MaxLengthNoMatch) {
     EXPECT_EQ(result, ""); // No 'z' in s
     
     RECORD_PERFORMANCE_PROPERTY(metrics, "MaxLengthNoMatch");
-    EXPECT_PERFORMANCE(metrics, 100.0, 10240);
+    EXPECT_PERFORMANCE(metrics, 10, 1);
 }
 
 TEST(MinWindowSubstring, MaxLengthManyDistinct) {
@@ -249,7 +249,7 @@ TEST(MinWindowSubstring, MaxLengthManyDistinct) {
     
     string str_t = "abcdefghij"; // 10 distinct chars
     
-    PerformanceMonitor monitor(100.0, 10240); // 100ms, 10MB
+    PerformanceMonitor monitor(10, 1);
     string result;
     auto metrics = monitor.measureWithReturn([&]() {
         return s.minWindow(str_s, str_t);
@@ -260,5 +260,5 @@ TEST(MinWindowSubstring, MaxLengthManyDistinct) {
     EXPECT_GE(result.length(), 10); // At least 10 chars
     
     RECORD_PERFORMANCE_PROPERTY(metrics, "ManyDistinctChars");
-    EXPECT_PERFORMANCE(metrics, 100.0, 10240);
+    EXPECT_PERFORMANCE(metrics, 10, 1);
 }

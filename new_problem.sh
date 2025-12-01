@@ -16,7 +16,6 @@ mkdir -p "$PROBLEM_DIR/tests"
 SOLUTION_FILE="$PROBLEM_DIR/solution.cpp"
 if [ ! -f "$SOLUTION_FILE" ]; then
 cat <<EOF > "$SOLUTION_FILE"
-// solution.cpp
 #include <vector>
 using namespace std;
 
