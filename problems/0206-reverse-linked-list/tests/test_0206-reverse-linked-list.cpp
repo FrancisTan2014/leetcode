@@ -1,8 +1,10 @@
 // tests/test_0206-reverse-linked-list.cpp
 #include <gtest/gtest.h>
 #include <performance.h>
+#include <vector>
 #include "../solution.cpp"
 
+using namespace std;
 using namespace leetcode;
 
 ListNode* createList(const vector<int>& vals) {
