@@ -17,10 +17,9 @@ SOLUTION_FILE="$PROBLEM_DIR/solution.cpp"
 if [ ! -f "$SOLUTION_FILE" ]; then
 cat <<EOF > "$SOLUTION_FILE"
 #include <vector>
-using namespace std;
 
 class Solution {
-public:
+ public:
     // TODO: implement solution
 };
 EOF
