@@ -13,7 +13,7 @@ public:
             auto it = seen.find(need);
             if (it != seen.end()) return {it->second, i};
             seen[nums[i]] = i;
-        }
+        } 
         return {};
     }
 };
