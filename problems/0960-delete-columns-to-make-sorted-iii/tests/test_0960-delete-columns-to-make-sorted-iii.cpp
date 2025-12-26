@@ -159,6 +159,13 @@ TEST(DeleteColumnsToMakeSortedIII, ZigzagPattern) {
     EXPECT_EQ(s.minDeletionSize(strs), 1); // Can keep columns {0,1,3} → "abb", "cdd"
 }
 
+// Subtle pattern
+TEST(DeleteColumnsToMakeSortedIII, SubtlePatter) {
+    Solution s;
+    std::vector<std::string> strs = {"mnab", "acbd"};
+    EXPECT_EQ(s.minDeletionSize(strs), 2);
+}
+
 TEST(DeleteColumnsToMakeSortedIII, Performance) {
     Solution s;
     

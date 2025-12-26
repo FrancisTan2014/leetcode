@@ -1,46 +1,38 @@
 #include <vector>
 #include <string>
+#include <algorithm>
 
 using std::vector;
 using std::string;
 
+/**
+ * DP pattern
+ */
 class Solution {
  public:
   int minDeletionSize(vector<string>& strs) {
-    return bruteForce(strs);
-  }
-
- private:
-  int bruteForce(const vector<string>& strs) {
-    int rows = strs.size();
     int cols = strs[0].length();
+    vector<int> dp(cols);
+    for (int i = 0; i < cols; i++) {
+      dp[i] = 1; // At minimum, keep just column i by itself
 
-    vector<vector<bool>> table;
-    for (int i = 0; i < rows; i++) {
-      table.push_back(analyze(strs[i]));
-    }
-
-    int delete_count = 0;
-    for (int c = 0; c < cols; c++) {
-      for (int r = 0; r < rows; r++) {
-        if (table[r][c]) {
-          delete_count++;
-          break;
+      for (int j = 0; j < i; j++) {
+        if (canFollow(strs, j, i)) {
+          // Can we extend the subsequence ending at j by adding column i?
+          dp[i] = std::max(dp[i], dp[j] + 1);
         }
       }
     }
 
-    return delete_count;
+    int maxDp = *std::max_element(dp.begin(), dp.end());
+    return cols - maxDp;
   }
 
-  vector<bool> analyze(const string& s) {
-    vector<bool> v(s.size(), false);
-    for (int i = 0; i < s.size() - 1; i++) {
-      if (s[i] > s[i + 1]) {
-        v[i] = true;
-      }
+ private:
+  bool canFollow(const vector<string>& strs, int col1, int col2) {
+    for (const string& s : strs) {
+      if (s[col1] > s[col2]) return false;
     }
-
-    return v;
+    return true;
   }
 };
